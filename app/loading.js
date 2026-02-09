@@ -1,7 +1,9 @@
-export default function Page() {
+import Spinner from "@/app/_components/Spinner";
+
+export default function Loading() {
   return (
     <>
-      <p>Loading...</p>
+      <Spinner />
     </>
   );
 }
