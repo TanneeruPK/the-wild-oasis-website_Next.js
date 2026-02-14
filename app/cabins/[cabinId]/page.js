@@ -1,10 +1,12 @@
-import { getCabin } from "@/app/_lib/data-service";
+import { getCabin, getCabins } from "@/app/_lib/data-service";
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 
 // export const metadata = {
 //   title: `cabin`,
 // };
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }) {
   const { name } = await getCabin(params.cabinId);
@@ -13,14 +15,17 @@ export async function generateMetadata({ params }) {
     title: `Cabin ${name}`,
   };
 }
+export async function generateStaticParams() {
+  const cabins = await getCabins();
+  const cabinIds = cabins.map((cabin) => ({ cabinId: String(cabin.id) }));
+  // console.log(cabinIds);
+  return cabinIds;
+}
 
 export default async function Page({ params }) {
   const cabin = await getCabin(params.cabinId);
-  //   console.log(cabin);
   const { id, name, maxCapacity, regularPrice, discount, image, description } =
     cabin;
-
-  // console.log(cabin.name);
 
   return (
     <div className="max-w-6xl mx-auto mt-8">
