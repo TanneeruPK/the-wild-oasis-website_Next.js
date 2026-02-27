@@ -1,4 +1,4 @@
-export function Filter({ cabins, filter }) {
+export function FilterCabins({ cabins, filter }) {
   let displayedCabins;
   if (filter === "all") displayedCabins = cabins;
 
